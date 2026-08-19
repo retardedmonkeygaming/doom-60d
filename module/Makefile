@@ -1,6 +1,6 @@
-# Canon EOS 550D Doomgeneric module
-MODULE_NAME = doom
-export ML_BUILD_USER := Bas Lichtjaar <doom@lauris.nl>
+# Canon EOS 60D Doomgeneric module
+MODULE_NAME = doom60d
+export ML_BUILD_USER := HobbyistPort
 
 DOOM_OBJS = \
     dummy am_map doomdef doomstat dstrings d_event d_items d_iwad d_loop \
@@ -16,25 +16,12 @@ DOOM_OBJS = \
     doom_cheat doom_cheat_menu
 
 MODULE_OBJS = \
-    $(BUILD_DIR)/doom550d.o \
+    $(BUILD_DIR)/doom60d.o \
     $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(DOOM_OBJS)))
 
 TOP_DIR = ../..
 
-# Belangrijk: modules/Makefile stelt CFLAGS zelf in.
-# Onze flags moeten daarom NA deze include worden toegevoegd.
 include $(TOP_DIR)/modules/Makefile
-
-.PHONY: source-backup
-
-source-backup:
-	@./backup-source.sh
-
-# Maak de bronback-up af voordat een objectbestand wordt gecompileerd. De
-# module_complete-afhankelijkheid zorgt ook bij een reeds actuele build voor
-# een nieuw archief bij iedere expliciete make-aanroep.
-$(MODULE_OBJS): | source-backup
-$(BUILD_DIR)/module_complete: | source-backup
 
 CFLAGS += \
     -DCMAP256 \
